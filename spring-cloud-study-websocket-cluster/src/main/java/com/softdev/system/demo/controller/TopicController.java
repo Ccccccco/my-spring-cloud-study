@@ -12,11 +12,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 类名：TopicController
- * 注释：TODO
- * 作者：jichao
- * 日期：2020/4/25-19:31
- * 版本：1.0
+ * @author:jichao
+ * @date:2020/4/25-22:48
+ * @description: 题目控制器
+ * Life is so short,do something to make yourself happy,such as coding
  **/
 @RestController
 public class TopicController {
