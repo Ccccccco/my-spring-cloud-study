@@ -1,13 +1,12 @@
 package com.softdev.system.demo.entity;
 
 import lombok.Data;
-import java.util.Date;
-import java.util.List;
-import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.GeneratedValue;
+import java.io.Serializable;
+import java.util.Date;
 
 /**
 *  ws_message

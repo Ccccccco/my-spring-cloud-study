@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 /**
  * @author Moshow
  */
+
 @SpringBootApplication
 public class DemoApplication {
 	public static void main(String[] args) {

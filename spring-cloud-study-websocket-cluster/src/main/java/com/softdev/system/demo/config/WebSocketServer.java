@@ -1,16 +1,8 @@
 package com.softdev.system.demo.config;
 
-import java.io.IOException;
-import java.util.Date;
-import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
-import javax.websocket.OnClose;
-import javax.websocket.OnError;
-import javax.websocket.OnMessage;
-import javax.websocket.OnOpen;
-import javax.websocket.Session;
-import javax.websocket.server.PathParam;
-import javax.websocket.server.ServerEndpoint;
+import cn.hutool.core.util.RandomUtil;
+import cn.hutool.log.Log;
+import cn.hutool.log.LogFactory;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.softdev.system.demo.entity.WsMessage;
@@ -18,13 +10,16 @@ import com.softdev.system.demo.entity.WsSite;
 import com.softdev.system.demo.repository.WsMessageRepository;
 import com.softdev.system.demo.repository.WsSiteRepository;
 import com.softdev.system.demo.util.SpringUtils;
-
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
-import cn.hutool.core.util.RandomUtil;
-import cn.hutool.log.Log;
-import cn.hutool.log.LogFactory;
+import javax.websocket.*;
+import javax.websocket.server.PathParam;
+import javax.websocket.server.ServerEndpoint;
+import java.io.IOException;
+import java.util.Date;
+import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 
 /**

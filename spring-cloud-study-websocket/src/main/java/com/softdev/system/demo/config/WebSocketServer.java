@@ -1,20 +1,17 @@
 package com.softdev.system.demo.config;
 
-import java.io.IOException;
-import java.util.concurrent.ConcurrentHashMap;
-import javax.websocket.OnClose;
-import javax.websocket.OnError;
-import javax.websocket.OnMessage;
-import javax.websocket.OnOpen;
-import javax.websocket.Session;
-import javax.websocket.server.PathParam;
-import javax.websocket.server.ServerEndpoint;
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
-import org.apache.commons.lang.StringUtils;
-import org.springframework.stereotype.Component;
 import cn.hutool.log.Log;
 import cn.hutool.log.LogFactory;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.stereotype.Component;
+
+import javax.websocket.*;
+import javax.websocket.server.PathParam;
+import javax.websocket.server.ServerEndpoint;
+import java.io.IOException;
+import java.util.concurrent.ConcurrentHashMap;
 
 
 /**
@@ -34,6 +31,8 @@ public class WebSocketServer {
     private Session session;
     /**接收userId*/
     private String userId="";
+
+
 
     /**
      * 连接建立成功调用的方法*/
@@ -78,6 +77,8 @@ public class WebSocketServer {
      * 收到客户端消息后调用的方法
      *
      * @param message 客户端发送过来的消息*/
+
+
     @OnMessage
     public void onMessage(String message, Session session) {
         log.info("用户消息:"+userId+",报文:"+message);
@@ -104,9 +105,7 @@ public class WebSocketServer {
     }
 
     /**
-     *
-     * @param session
-     * @param error
+     * @description: 异常
      */
     @OnError
     public void onError(Session session, Throwable error) {
@@ -114,16 +113,26 @@ public class WebSocketServer {
         error.printStackTrace();
     }
     /**
-     * 实现服务器主动推送
+     * @description: 实现服务器主动推送
      */
     public void sendMessage(String message) throws IOException {
         this.session.getBasicRemote().sendText(message);
     }
 
+    /**
+     * @description: 实现服务器向所有在线用户主动推送
+     */
+    public static void sendInfoToAll(String message) throws IOException {
+        ConcurrentHashMap.KeySetView<String, WebSocketServer> strings = webSocketMap.keySet();
+        for (String string : strings) {
+            webSocketMap.get(string).sendMessage(message);
+        }
+    }
+
 
     /**
-     * 发送自定义消息
-     * */
+     * @description: 发送自定义消息
+     */
     public static void sendInfo(String message,@PathParam("userId") String userId) throws IOException {
         log.info("发送消息到:"+userId+"，报文:"+message);
         if(StringUtils.isNotBlank(userId)&&webSocketMap.containsKey(userId)){
@@ -133,14 +142,24 @@ public class WebSocketServer {
         }
     }
 
+
+    /**
+     * @description: 获取当前在线人数
+     */
     public static synchronized int getOnlineCount() {
         return onlineCount;
     }
 
+    /**
+     * @description: 当前在线人数+1
+     */
     public static synchronized void addOnlineCount() {
         WebSocketServer.onlineCount++;
     }
 
+    /**
+     * @description: 当前在线人数-1
+     */
     public static synchronized void subOnlineCount() {
         WebSocketServer.onlineCount--;
     }

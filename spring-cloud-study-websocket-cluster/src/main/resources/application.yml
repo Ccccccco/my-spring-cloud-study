@@ -26,9 +26,9 @@ spring:
         driverClassName: com.mysql.jdbc.Driver
         driver-class-name: com.mysql.jdbc.Driver
         platform: mysql
-        url: jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&characterEncoding=utf-8&useSSL=false
+        url: jdbc:mysql://127.0.0.1:13306/websocket?useUnicode=true&characterEncoding=utf-8&useSSL=false
         username: root
-        password: root
+        password: 123456
         initialSize: 5
         minIdle: 5
         maxActive: 20
@@ -49,3 +49,16 @@ spring:
         hibernate:
           hbm2ddl:
             auto: update
+    redis:
+      host: 127.0.0.1
+      port: 16379
+
+jedis:
+  pool:
+    host: 127.0.0.1
+    port: 16379
+    timeout: 0
+    config:
+    maxTotal: 100
+    maxIdle: 10
+    maxWaitMillis: 100000
